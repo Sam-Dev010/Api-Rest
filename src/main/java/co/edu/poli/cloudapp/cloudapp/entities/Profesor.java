@@ -22,6 +22,7 @@ import lombok.Setter;
 public class Profesor {
 
     @Id
+    @jakarta.persistence.GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     @Column(name = "id_profesor")
     private Long idProfesor;
 

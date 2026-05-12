@@ -17,7 +17,6 @@ import co.edu.poli.cloudapp.cloudapp.services.IEstudianteService;
 @Transactional
 public class EstudianteServicesImpl implements IEstudianteService {
 
-    @Autowired
     private final  IEstudianteRepository repoEstudiante;
     
     private final  ModelMapper modelMapper;
@@ -48,8 +47,8 @@ public class EstudianteServicesImpl implements IEstudianteService {
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        Estudiante existente = repoEstudiante.findById(id).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+        repoEstudiante.delete(existente);
     }
 
     @Override

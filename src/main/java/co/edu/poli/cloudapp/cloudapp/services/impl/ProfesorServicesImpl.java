@@ -4,13 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.poli.cloudapp.cloudapp.dto.EstudianteDTO;
 import co.edu.poli.cloudapp.cloudapp.dto.ProfesorDTO;
-import co.edu.poli.cloudapp.cloudapp.entities.Estudiante;
 import co.edu.poli.cloudapp.cloudapp.entities.Profesor;
 import co.edu.poli.cloudapp.cloudapp.repositories.IProfesorRepository;
 import co.edu.poli.cloudapp.cloudapp.services.IProfesorService;
@@ -19,7 +16,6 @@ import co.edu.poli.cloudapp.cloudapp.services.IProfesorService;
 @Transactional
 public class ProfesorServicesImpl implements IProfesorService {
 
-    @Autowired
     private final  IProfesorRepository repoProfesor;
     
     private final  ModelMapper modelMapper;
@@ -38,7 +34,7 @@ public class ProfesorServicesImpl implements IProfesorService {
 
     @Override
     public ProfesorDTO update(Long id, ProfesorDTO profesorDTO) {
-        Profesor existente = repoProfesor.findById(id).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+        Profesor existente = repoProfesor.findById(id).orElseThrow(() -> new RuntimeException("Profesor no encontrado"));
         existente.setNomProfesor(profesorDTO.getNomProfesor());
         existente.setApeProfesor(profesorDTO.getApeProfesor());
         existente.setFechaNacimiento(profesorDTO.getFechaNacimiento());
@@ -50,8 +46,8 @@ public class ProfesorServicesImpl implements IProfesorService {
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        Profesor existente = repoProfesor.findById(id).orElseThrow(() -> new RuntimeException("Profesor no encontrado"));
+        repoProfesor.delete(existente);
     }
 
     @Override
